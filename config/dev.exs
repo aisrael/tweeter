@@ -71,5 +71,5 @@ config :tweeter, Tweeter.Repo,
   username: "postgres",
   password: "postgres",
   database: "tweeter_dev",
-  hostname: "localhost",
-  pool_size: 10
+  hostname: URI.parse(System.get_env("DOCKER_HOST")).host,
+  pool_size: 2

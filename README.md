@@ -1,6 +1,18 @@
 # Tweeter
 
-To start your Phoenix server:
+## Development
+
+### Dependencies
+
+Start the services using `docker-compose`
+
+```
+docker-compose up
+```
+
+Verify that the `$DOCKER_HOST` environment variable is set and points to your docker host (`localhost` usually)
+
+### To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.setup`
