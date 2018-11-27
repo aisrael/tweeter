@@ -4,10 +4,10 @@ defmodule Tweeter.Tweet do
 
 
   schema "tweets" do
-    field :content, :string
     field :handle, :string
+    field :content, :string
 
-    timestamps()
+    timestamps(updated_at: false, type: :utc_datetime)
   end
 
   @doc false

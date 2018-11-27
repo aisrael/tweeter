@@ -6,7 +6,7 @@ defmodule Tweeter.Repo.Migrations.CreateTweets do
       add :handle, :string
       add :content, :string
 
-      timestamps()
+      timestamps(updated_at: false, type: :timestamptz)
     end
 
   end
