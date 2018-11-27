@@ -2,6 +2,7 @@ defmodule TweeterWeb.PageController do
   use TweeterWeb, :controller
 
   def index(conn, _params) do
-    render(conn, "tweets.html", layout: {TweeterWeb.LayoutView, "tweeter.html"})
+    [ tweet | _ ] =Tweeter.Repo.all(Tweeter.Tweet)
+    render(conn, "tweets.html", tweet: tweet, layout: {TweeterWeb.LayoutView, "tweeter.html"})
   end
 end
