@@ -2,4 +2,5 @@
 <div>
 <div><%= @tweet.handle %></div>
 <div><%= @tweet.content %></div>
+<div><%= TweeterWeb.PageController.format_timestamp(@tweet) %></div>
 </div>
