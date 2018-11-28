@@ -1,6 +1,8 @@
 <h2>Tweets</h2>
+<%= for tweet <- @tweets do %>
 <div>
-<div><%= @tweet.handle %></div>
-<div><%= @tweet.content %></div>
-<div><%= TweeterWeb.PageController.format_timestamp(@tweet) %></div>
+<div><%= tweet.handle %></div>
+<div><%= tweet.content %></div>
+<div><%= TweeterWeb.PageController.format_timestamp(tweet) %></div>
 </div>
+<% end %>
