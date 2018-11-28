@@ -1,9 +1,32 @@
 defmodule TweeterWeb.PageController do
   use TweeterWeb, :controller
 
+  alias Tweeter.Tweets
+  alias Tweeter.Tweet
+
   def index(conn, _params) do
-    tweets = Tweeter.Repo.all(Tweeter.Tweet)
-    render(conn, "tweets.html", tweets: tweets, layout: {TweeterWeb.LayoutView, "tweeter.html"})
+    tweets = Tweets.list_tweets()
+    changeset = Tweets.change_tweet(%Tweet{})
+    render(conn, "tweets.html",
+      tweets: tweets,
+      changeset: changeset,
+      layout: {TweeterWeb.LayoutView, "tweeter.html"})
+  end
+
+  def create(conn, %{"tweet" => tweet_params}) do
+    case Tweets.create_tweet(tweet_params) do
+      {:ok, tweet} ->
+        conn
+        |> put_flash(:info, "Tweet created successfully.")
+        |> redirect(to: Routes.page_path(conn, :index))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        tweets = Tweets.list_tweets()
+        render(conn, "tweets.html",
+          tweets: tweets,
+          changeset: changeset,
+          layout: {TweeterWeb.LayoutView, "tweeter.html"})
+    end
   end
 
   def format_timestamp(tweet) do
