@@ -9,8 +9,7 @@ defmodule TweeterWeb.PageController do
     changeset = Tweets.change_tweet(%Tweet{})
     render(conn, "tweets.html",
       tweets: tweets,
-      changeset: changeset,
-      layout: {TweeterWeb.LayoutView, "tweeter.html"})
+      changeset: changeset)
   end
 
   def create(conn, %{"tweet" => tweet_params}) do
@@ -24,8 +23,7 @@ defmodule TweeterWeb.PageController do
         tweets = Tweets.list_tweets()
         render(conn, "tweets.html",
           tweets: tweets,
-          changeset: changeset,
-          layout: {TweeterWeb.LayoutView, "tweeter.html"})
+          changeset: changeset)
     end
   end
 
