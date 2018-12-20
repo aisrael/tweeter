@@ -7,7 +7,7 @@ defmodule TweeterWeb.PageController do
   def index(conn, _params) do
     tweets = Tweets.list_tweets()
     changeset = Tweets.change_tweet(%Tweet{})
-    render(conn, "tweets.html",
+    render(conn, "index.html",
       tweets: tweets,
       changeset: changeset)
   end
@@ -21,7 +21,7 @@ defmodule TweeterWeb.PageController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         tweets = Tweets.list_tweets()
-        render(conn, "tweets.html",
+        render(conn, "index.html",
           tweets: tweets,
           changeset: changeset)
     end

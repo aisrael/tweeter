@@ -1,35 +1,22 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>A productive web framework that<br/>does not compromise speed and maintainability.</p>
+<section>
+  <div class="col">
+    <h2>Tweets</h2>
+  </div>
 </section>
+<section>
+  <div class="col-4">
+    <%= render "form.html", Map.put(assigns, :action, Routes.page_path(@conn, :create)) %>
 
-<section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.4/CHANGELOG.md">v1.4 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-    </ul>
-  </article>
+  </div>
+</section>
+<section>
+  <%= for tweet <- @tweets do %>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title"><%= tweet.handle %></h5>
+        <h6 class="card-subtitle"><%= TweeterWeb.PageController.format_timestamp(tweet) %></h6>
+        <p class="card-text"><%= tweet.content %></p>
+      </div>
+    </div>
+  <% end %>
 </section>

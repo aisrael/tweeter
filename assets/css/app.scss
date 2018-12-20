@@ -1,0 +1,20 @@
+/* This file is for your main application css. */
+
+/* Import bootstrap-sass so that we have access to all of its selectors */
+@import "~bootstrap/scss/bootstrap";
+
+header {
+  @extend .container-fluid;
+
+  section {
+    @extend .row;
+  }
+}
+
+main {
+  @extend .container;
+
+  section {
+    @extend .row;
+  }
+}

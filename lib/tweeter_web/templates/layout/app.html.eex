@@ -11,15 +11,23 @@
 <body>
 <header>
 <section>
+<div class="col">
 <h1>Tweeter</h1>
+</div>
 </section>
 </header>
-<main role="main" class="container">
+<main role="main">
+<%= unless is_nil(get_flash(@conn, :info)) and is_nil(get_flash(@conn, :error)) do %>
+<section>
+<div class="col">
 <%= unless is_nil(get_flash(@conn, :info)) do %>
 <p class="alert alert-success" role="alert"><%= get_flash(@conn, :info) %></p>
 <% end %>
 <%= unless is_nil(get_flash(@conn, :error)) do %>
 <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+<% end %>
+</div>
+</section>
 <% end %>
 <%= render @view_module, @view_template, assigns %>
 </main>
