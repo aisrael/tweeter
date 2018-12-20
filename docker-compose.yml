@@ -1,7 +1,7 @@
 version: "2"
 services:
   postgres:
-    image: postgres:9.6
+    image: postgres:9.6.11-alpine
     ports:
       - 5432:5432
     environment:
