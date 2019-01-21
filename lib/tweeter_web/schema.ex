@@ -1,4 +1,8 @@
 defmodule TweeterWeb.Schema do
+  @moduledoc """
+  This module defines the Tweeter GraphQL Schema.
+  """
+
   use Absinthe.Schema
 
   import_types(TweeterWeb.Schema.ContentTypes)

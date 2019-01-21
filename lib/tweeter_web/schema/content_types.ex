@@ -1,4 +1,8 @@
 defmodule TweeterWeb.Schema.ContentTypes do
+  @moduledoc """
+  This module defines the Tweeter GraphQL content types.
+  """
+
   use Absinthe.Schema.Notation
 
   @desc "A Tweet"

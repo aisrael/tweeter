@@ -14,6 +14,8 @@ defmodule Tweeter.DataCase do
 
   use ExUnit.CaseTemplate
 
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       alias Tweeter.Repo
@@ -26,10 +28,10 @@ defmodule Tweeter.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Tweeter.Repo)
+    :ok = Sandbox.checkout(Tweeter.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Tweeter.Repo, {:shared, self()})
+      Sandbox.mode(Tweeter.Repo, {:shared, self()})
     end
 
     :ok
@@ -43,6 +45,7 @@ defmodule Tweeter.DataCase do
       assert %{password: ["password is too short"]} = errors_on(changeset)
 
   """
+  @spec errors_on(%Ecto.Changeset{}) :: map
   def errors_on(changeset) do
     Ecto.Changeset.traverse_errors(changeset, fn {message, opts} ->
       Enum.reduce(opts, message, fn {key, value}, acc ->
