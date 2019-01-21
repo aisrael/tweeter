@@ -7,9 +7,11 @@ defmodule TweeterWeb.PageController do
   def index(conn, _params) do
     tweets = Tweets.list_tweets()
     changeset = Tweets.change_tweet(%Tweet{})
+
     render(conn, "index.html",
       tweets: tweets,
-      changeset: changeset)
+      changeset: changeset
+    )
   end
 
   def create(conn, %{"tweet" => tweet_params}) do
@@ -21,15 +23,17 @@ defmodule TweeterWeb.PageController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         tweets = Tweets.list_tweets()
+
         render(conn, "index.html",
           tweets: tweets,
-          changeset: changeset)
+          changeset: changeset
+        )
     end
   end
 
   def format_timestamp(tweet) do
-    tweet.inserted_at |>
-    Timex.Timezone.convert(Timex.Timezone.local) |>
-    Timex.format!("{M}/{D}/{YYYY} {h24}:{m}{am}")
+    tweet.inserted_at
+    |> Timex.Timezone.convert(Timex.Timezone.local())
+    |> Timex.format!("{M}/{D}/{YYYY} {h24}:{m}{am}")
   end
 end

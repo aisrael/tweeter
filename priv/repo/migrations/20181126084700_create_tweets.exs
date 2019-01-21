@@ -8,6 +8,5 @@ defmodule Tweeter.Repo.Migrations.CreateTweets do
 
       timestamps(updated_at: false, type: :timestamptz)
     end
-
   end
 end

@@ -9,9 +9,8 @@ defmodule TweeterWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
+  forward "/graphiql", Absinthe.Plug.GraphiQL, schema: TweeterWeb.Schema, json_codec: Jason
+  forward "/graphql", Absinthe.Plug, schema: TweeterWeb.Schema, json_codec: Jason
 
   scope "/", TweeterWeb do
     pipe_through :browser

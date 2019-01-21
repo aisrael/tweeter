@@ -66,9 +66,10 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
-docker_host =
-  if System.get_env("DOCKER_HOST"),
-    do: URI.parse(System.get_env("DOCKER_HOST")).host,
+# If running with minikube, parse $DOCKER_HOST for the IP address
+repo_hostname =
+  if docker_host = System.get_env("DOCKER_HOST"),
+    do: URI.parse(docker_host).host,
     else: "localhost"
 
 # Configure your database
@@ -76,5 +77,5 @@ config :tweeter, Tweeter.Repo,
   username: "postgres",
   password: "postgres",
   database: "tweeter_dev",
-  hostname: docker_host,
+  hostname: repo_hostname,
   pool_size: 2

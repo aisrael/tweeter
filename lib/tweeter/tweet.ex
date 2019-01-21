@@ -2,7 +2,6 @@ defmodule Tweeter.Tweet do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "tweets" do
     field :handle, :string
     field :content, :string
