@@ -9,10 +9,15 @@ config :tweeter, TweeterWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+repo_hostname =
+  if docker_host = System.get_env("DOCKER_HOST"),
+    do: URI.parse(docker_host).host,
+    else: "localhost"
+
 # Configure your database
 config :tweeter, Tweeter.Repo,
   username: "postgres",
   password: "postgres",
   database: "tweeter_test",
-  hostname: "localhost",
+  hostname: repo_hostname,
   pool: Ecto.Adapters.SQL.Sandbox
