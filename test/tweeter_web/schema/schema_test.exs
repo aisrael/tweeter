@@ -22,7 +22,13 @@ defmodule TweeterWeb.SchemaTest do
         |> post("/graphql", %{query: query})
         |> json_response(200)
 
-      assert response == %{"data" => %{"tweet" => %{"id" => "#{id}"}}}
+      assert response == %{
+               "data" => %{
+                 "tweet" => %{
+                   "id" => "#{id}"
+                 }
+               }
+             }
     end
   end
 end

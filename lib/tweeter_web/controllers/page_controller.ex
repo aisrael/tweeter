@@ -18,7 +18,7 @@ defmodule TweeterWeb.PageController do
   @spec create(Plug.Conn.t(), map) :: Plug.Conn.t()
   def create(conn, %{"tweet" => tweet_params}) do
     case Tweets.create_tweet(tweet_params) do
-      {:ok, tweet} ->
+      {:ok, _tweet} ->
         conn
         |> put_flash(:info, "Tweet created successfully.")
         |> redirect(to: Routes.page_path(conn, :index))

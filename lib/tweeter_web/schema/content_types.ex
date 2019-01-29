@@ -5,10 +5,25 @@ defmodule TweeterWeb.Schema.ContentTypes do
 
   use Absinthe.Schema.Notation
 
+  alias TweeterWeb.Resolvers
+
   @desc "A Tweet"
   object :tweet do
     field :id, :id
     field :handle, :string
     field :content, :string
+  end
+
+  object :tweet_queries do
+    @desc "Get tweet"
+    field :tweet, :tweet do
+      arg(:id, non_null(:id))
+      resolve(&Resolvers.Tweet.find_tweet/3)
+    end
+
+    @desc "List tweets"
+    field :tweets, list_of(:tweet) do
+      resolve(&Resolvers.Tweet.list_tweets/3)
+    end
   end
 end
