@@ -17,6 +17,7 @@ defmodule Tweeter.Tweets do
       [%Tweet{}, ...]
 
   """
+  @spec list_tweets :: [%Tweet{}]
   def list_tweets do
     Repo.all(Tweet)
   end
@@ -35,6 +36,7 @@ defmodule Tweeter.Tweets do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_tweet!(integer) :: %Tweet{}
   def get_tweet!(id), do: Repo.get!(Tweet, id)
 
   @doc """
@@ -49,6 +51,7 @@ defmodule Tweeter.Tweets do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_tweet(map) :: {:ok, %Tweet{}} | {:error, map}
   def create_tweet(attrs \\ %{}) do
     %Tweet{}
     |> Tweet.changeset(attrs)
@@ -67,6 +70,7 @@ defmodule Tweeter.Tweets do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_tweet(map, map) :: {:ok, %Tweet{}} | {:error, map}
   def update_tweet(%Tweet{} = tweet, attrs) do
     tweet
     |> Tweet.changeset(attrs)
@@ -85,6 +89,7 @@ defmodule Tweeter.Tweets do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_tweet(%Tweet{}) :: {:ok, %Tweet{}} | {:error, map}
   def delete_tweet(%Tweet{} = tweet) do
     Repo.delete(tweet)
   end
@@ -98,6 +103,7 @@ defmodule Tweeter.Tweets do
       %Ecto.Changeset{source: %Tweet{}}
 
   """
+  @spec change_tweet(%Tweet{}) :: %Ecto.Changeset{}
   def change_tweet(%Tweet{} = tweet) do
     Tweet.changeset(tweet, %{})
   end

@@ -10,9 +10,4 @@ config :tweeter, TweeterWeb.Endpoint,
 config :logger, level: :warn
 
 # Configure your database
-config :tweeter, Tweeter.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "tweeter_test",
-  hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+config :tweeter, Tweeter.Repo, pool: Ecto.Adapters.SQL.Sandbox

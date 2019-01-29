@@ -15,6 +15,8 @@ defmodule TweeterWeb.ChannelCase do
 
   use ExUnit.CaseTemplate
 
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       # Import conveniences for testing with channels
@@ -26,10 +28,10 @@ defmodule TweeterWeb.ChannelCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Tweeter.Repo)
+    :ok = Sandbox.checkout(Tweeter.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Tweeter.Repo, {:shared, self()})
+      Sandbox.mode(Tweeter.Repo, {:shared, self()})
     end
 
     :ok
