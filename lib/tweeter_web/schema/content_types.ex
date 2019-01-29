@@ -26,4 +26,14 @@ defmodule TweeterWeb.Schema.ContentTypes do
       resolve(&Resolvers.Tweet.list_tweets/3)
     end
   end
+
+  object :tweet_commands do
+    @desc "Create tweet"
+    field :create_tweet, type: :tweet do
+      arg(:handle, non_null(:string))
+      arg(:content, non_null(:string))
+
+      resolve(&Resolvers.Tweet.create_tweet/3)
+    end
+  end
 end

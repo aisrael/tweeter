@@ -10,4 +10,8 @@ defmodule TweeterWeb.Schema do
   query do
     import_fields(:tweet_queries)
   end
+
+  mutation do
+    import_fields(:tweet_commands)
+  end
 end
