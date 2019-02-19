@@ -1,16 +1,21 @@
 # This file is responsible for configuring your application
 # and its dependencies with the aid of the Mix.Config module.
+#
+# This configuration file is loaded before any dependency and
+# is restricted to this project.
+
+# General application configuration
 use Mix.Config
 
-# By default, the umbrella project as well as each child
-# application will require this configuration file, as
-# configuration and dependencies are shared in an umbrella
-# project. While one could configure all applications here,
-# we prefer to keep the configuration of each individual
-# child application in their own app, but all other
-# dependencies, regardless if they belong to one or multiple
-# apps, should be configured in the umbrella to avoid confusion.
-import_config "../apps/*/config/config.exs"
+config :tweeter,
+  ecto_repos: [Tweeter.Repo]
+
+# Configures the endpoint
+config :tweeter, TweeterWeb.Endpoint,
+  url: [host: "localhost"],
+  secret_key_base: "eG3HBuagTYGrj7Rg1YacuAACRZqrJgA2WC9PxOIIIhJfxyfhIZXm7rFA6EhN6ux7",
+  render_errors: [view: TweeterWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Tweeter.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
