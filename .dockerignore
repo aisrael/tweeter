@@ -1,0 +1,8 @@
+.*
+_build/
+deps/
+Dockerfile
+Makefile
+README*
+test/
+priv/static/

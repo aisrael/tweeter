@@ -55,7 +55,8 @@ defmodule Tweeter.MixProject do
       {:absinthe_plug, "~> 1.4.0"},
       {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.4", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.10", only: :test}
+      {:excoveralls, "~> 0.10", only: :test},
+      {:distillery, "~> 2.0"}
     ]
   end
 
