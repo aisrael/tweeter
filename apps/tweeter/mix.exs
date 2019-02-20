@@ -6,6 +6,10 @@ defmodule Tweeter.MixProject do
       app: :tweeter,
       version: "0.1.0",
       elixir: "~> 1.5",
+      build_path: "../../_build",
+      config_path: "../../config/config.exs",
+      deps_path: "../../deps",
+      lockfile: "../../mix.lock",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -55,8 +59,7 @@ defmodule Tweeter.MixProject do
       {:absinthe_plug, "~> 1.4.0"},
       {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.4", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.10", only: :test},
-      {:distillery, "~> 2.0"}
+      {:excoveralls, "~> 0.10", only: :test}
     ]
   end
 

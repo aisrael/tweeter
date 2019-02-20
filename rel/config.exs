@@ -47,9 +47,10 @@ end
 # will be used by default
 
 release :tweeter do
-  set version: current_version(:tweeter)
+  set version: "0.1.0"
   set applications: [
-    :runtime_tools
+    :runtime_tools,
+    tweeter: :permanent
   ]
 end
 
