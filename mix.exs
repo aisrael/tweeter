@@ -5,6 +5,7 @@ defmodule Tweeter.Umbrella.MixProject do
     [
       apps_path: "apps",
       start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
       deps: deps()
     ]
   end
@@ -23,5 +24,15 @@ defmodule Tweeter.Umbrella.MixProject do
   # and cannot be accessed from applications inside the apps folder
   defp deps do
     [{:distillery, "~> 2.0"}]
+  end
+
+  # Let's us run `mix ecto.setup` in the umbrella root but will run
+  # `mix ecto.setup` in all the child apps
+  defp aliases do
+    [
+      "ecto.setup": [
+        "cmd mix ecto.setup"
+      ]
+    ]
   end
 end
