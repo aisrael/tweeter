@@ -30,10 +30,13 @@ defmodule TweeterWeb.ConnCase do
 
   setup tags do
     :ok = Sandbox.checkout(Tweeter.Repo)
+    # TODO The ff. doesn't quite work
+    # Ecto.Adapters.SQL.Sandbox.allow(Tweeter.Repo, self(), Tweeter.TweetsEventHandler)
 
-    unless tags[:async] do
-      Sandbox.mode(Tweeter.Repo, {:shared, self()})
-    end
+    # So we need to ignore the :async tag
+    # unless tags[:async] do
+    Sandbox.mode(Tweeter.Repo, {:shared, self()})
+    # end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end

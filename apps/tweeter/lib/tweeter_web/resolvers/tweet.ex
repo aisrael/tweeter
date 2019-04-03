@@ -21,6 +21,10 @@ defmodule TweeterWeb.Resolvers.Tweet do
 
   @spec create_tweet(any, %{atom => any}, Absinthe.Resolution.t()) :: resolver_output
   def create_tweet(_parent, %{handle: handle, content: content}, _resolution) do
-    Tweeter.Tweets.create_tweet(%{handle: handle, content: content})
+    {:ok, id} = Tweeter.Tweets.create_tweet(%{handle: handle, content: content})
+
+    # Give some time for the EventHandler to actually perform the INSERT
+    Process.sleep(10)
+    {:ok, Tweeter.Tweets.get_tweet!(id)}
   end
 end

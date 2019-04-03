@@ -3,6 +3,8 @@ defmodule Tweeter.Repo do
     otp_app: :tweeter,
     adapter: Ecto.Adapters.Postgres
 
+  use RepoHelpers
+
   @spec init(:supervisor | :runtime, config :: Keyword.t()) :: {:ok, Keyword.t()} | :ignore
   def init(_type, config) do
     if database_url = System.get_env("DATABASE_URL") do

@@ -16,9 +16,10 @@ defmodule Tweeter.Application do
       # Start the Ecto repository
       Tweeter.Repo,
       # Start the endpoint when the application starts
-      TweeterWeb.Endpoint
+      TweeterWeb.Endpoint,
       # Starts a worker by calling: Tweeter.Worker.start_link(arg)
       # {Tweeter.Worker, arg},
+      {Tweeter.TweetsEventHandler, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

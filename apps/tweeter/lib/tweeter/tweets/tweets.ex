@@ -45,53 +45,23 @@ defmodule Tweeter.Tweets do
   ## Examples
 
       iex> create_tweet(%{field: value})
-      {:ok, %Tweet{}}
+      {:ok, 12}
 
       iex> create_tweet(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_tweet(map) :: {:ok, %Tweet{}} | {:error, map}
+  @spec create_tweet(map) :: {:ok, integer} | {:error, map}
   def create_tweet(attrs \\ %{}) do
-    %Tweet{}
-    |> Tweet.changeset(attrs)
-    |> Repo.insert()
-  end
+    changeset = Tweet.changeset(%Tweet{}, attrs)
 
-  @doc """
-  Updates a tweet.
-
-  ## Examples
-
-      iex> update_tweet(tweet, %{field: new_value})
-      {:ok, %Tweet{}}
-
-      iex> update_tweet(tweet, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  @spec update_tweet(map, map) :: {:ok, %Tweet{}} | {:error, map}
-  def update_tweet(%Tweet{} = tweet, attrs) do
-    tweet
-    |> Tweet.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a Tweet.
-
-  ## Examples
-
-      iex> delete_tweet(tweet)
-      {:ok, %Tweet{}}
-
-      iex> delete_tweet(tweet)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  @spec delete_tweet(%Tweet{}) :: {:ok, %Tweet{}} | {:error, map}
-  def delete_tweet(%Tweet{} = tweet) do
-    Repo.delete(tweet)
+    if changeset.valid? do
+      tweet_id = Repo.nextval!("tweets_id_seq")
+      Tweeter.TweetsEventHandler.tweet_created(Map.put(attrs, :id, tweet_id))
+      {:ok, tweet_id}
+    else
+      {:error, changeset}
+    end
   end
 
   @doc """
