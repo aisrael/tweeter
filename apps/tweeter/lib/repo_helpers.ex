@@ -1,6 +1,24 @@
 defmodule RepoHelpers do
+  @moduledoc """
+  Use this in your Ecto Repos to get a `nextval!(sequence_name)` helper
+  function (PostgreSQL only).
+
+  For example:
+
+  ```
+  defmodule Shore.Repo do
+    use Ecto.Repo,
+      otp_app: :shore,
+      adapter: Ecto.Adapters.Postgres
+    use RepoHelpers
+  ```
+
+  From then on, you can call e.g. `nextval!("users_id_seq")` to perform
+  equivalent of `SELECT nextval('users_id_seq');`
+  """
+
   @doc false
-  defmacro __using__(opts) do
+  defmacro __using__(_opts) do
     quote do
       @doc """
       Returns the next value of the given sequence name, or throws an exception.
