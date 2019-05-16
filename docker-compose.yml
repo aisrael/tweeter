@@ -8,4 +8,8 @@ services:
       - POSTGRES_DB=tweeter
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    container_name: postgres
+  eventstore:
+    image: eventstore/eventstore:release-4.1.2
+    ports:
+      - 1113:1113
+      - 2113:2113
