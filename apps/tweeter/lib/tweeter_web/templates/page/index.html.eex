@@ -6,10 +6,10 @@
 <section>
   <div class="col-4">
     <%= render "form.html", Map.put(assigns, :action, Routes.page_path(@conn, :create)) %>
-
   </div>
 </section>
 <section>
+  <div id="tweets" />
   <%= for tweet <- @tweets do %>
     <div class="card" style="width: 18rem;">
       <div class="card-body">
