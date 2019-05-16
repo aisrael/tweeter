@@ -20,7 +20,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 const Index = () => {
-    return <div>Hello React!</div>;
-};
+    return (
+        <section>
+            <div className="card" style={{ width: "18rem" }}>
+                <div className="card-body">
+                    <h5 className="card-title">tweet.handle</h5>
+                    <h6 className="card-subtitle">tweet.timestamp</h6>
+                    <p className="card-text">tweet.body</p>
+                </div>
+            </div>
+        </section >
+    )
+}
 
 ReactDOM.render(<Index />, document.getElementById("tweets"));
