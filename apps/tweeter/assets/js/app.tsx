@@ -24,8 +24,20 @@ import { format } from "date-fns";
 
 const client = new ApolloClient();
 
-const Tweet = (props) => {
-    const tweet = props.tweet;
+interface Tweet {
+    id: number,
+    timestamp: number,
+    handle: string,
+    text: string
+}
+
+interface TweetCardProps {
+    tweet: Tweet
+}
+
+const TweetCard: React.FC<TweetCardProps> = ({
+    tweet
+}: TweetCardProps): JSX.Element => {
     let date = new Date(tweet.timestamp);
     let formatted_timestamp = format(date, 'MM/DD/YYYY hh:mma');
     return (
@@ -49,7 +61,7 @@ const Index = () => {
     return (
         <section>
             {tweets.map(function (tweet, index) {
-                return (<Tweet key={tweet.id} tweet={tweet} />)
+                return (<TweetCard key={tweet.id} tweet={tweet} />)
             })}
         </section >
     )
