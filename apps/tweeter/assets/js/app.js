@@ -25,23 +25,26 @@ import { format } from "date-fns";
 const client = new ApolloClient();
 
 const Index = () => {
-    var tweet = {
+    var tweets = [{
         id: 1,
         handle: "handle",
         timestamp: 1559122600,
         body: "Lorem ipsum dolor sit amet"
-    }
-    let date = new Date(tweet.timestamp);
-    let formatted_timestamp = format(date, 'MM/DD/YYYY hh:mma');
+    }]
     return (
         <section>
-            <div key={tweet.id} className="card" style={{ width: "18rem" }}>
-                <div className="card-body">
-                    <h5 className="card-title">{tweet.handle}</h5>
-                    <h6 className="card-subtitle">{formatted_timestamp}</h6>
-                    <p className="card-text">{tweet.body}</p>
-                </div>
-            </div>
+            {tweets.map(function (tweet, index) {
+                let date = new Date(tweet.timestamp);
+                let formatted_timestamp = format(date, 'MM/DD/YYYY hh:mma');
+                return (
+                    <div key={tweet.id} className="card" style={{ width: "18rem" }}>
+                        <div className="card-body">
+                            <h5 className="card-title">{tweet.handle}</h5>
+                            <h6 className="card-subtitle">{formatted_timestamp}</h6>
+                            <p className="card-text">{tweet.body}</p>
+                        </div>
+                    </div>)
+            })}
         </section >
     )
 }
