@@ -60,9 +60,11 @@ const Index = () => {
     }]
     return (
         <section>
-            {tweets.map(function (tweet, index) {
-                return (<TweetCard key={tweet.id} tweet={tweet} />)
-            })}
+            <div class="col">
+                {tweets.map(function (tweet, index) {
+                    return (<TweetCard key={tweet.id} tweet={tweet} />)
+                })}
+            </div>
         </section >
     )
 }

@@ -10,6 +10,7 @@
 </section>
 <div id="tweets"></div>
 <section>
+  <div class="col">
   <%= for tweet <- @tweets do %>
     <div class="card" style="width: 18rem;">
       <div class="card-body">
@@ -19,4 +20,5 @@
       </div>
     </div>
   <% end %>
+  </div>
 </section>
