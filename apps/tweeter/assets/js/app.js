@@ -16,21 +16,39 @@ import "phoenix_html"
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
 
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
 import React from "react";
 import ReactDOM from "react-dom";
+import { format } from "date-fns";
+
+const client = new ApolloClient();
 
 const Index = () => {
+    var tweet = {
+        id: 1,
+        handle: "handle",
+        timestamp: 1559122600,
+        body: "Lorem ipsum dolor sit amet"
+    }
+    let date = new Date(tweet.timestamp);
+    let formatted_timestamp = format(date, 'MM/DD/YYYY hh:mma');
     return (
         <section>
-            <div className="card" style={{ width: "18rem" }}>
+            <div key={tweet.id} className="card" style={{ width: "18rem" }}>
                 <div className="card-body">
-                    <h5 className="card-title">tweet.handle</h5>
-                    <h6 className="card-subtitle">tweet.timestamp</h6>
-                    <p className="card-text">tweet.body</p>
+                    <h5 className="card-title">{tweet.handle}</h5>
+                    <h6 className="card-subtitle">{formatted_timestamp}</h6>
+                    <p className="card-text">{tweet.body}</p>
                 </div>
             </div>
         </section >
     )
 }
 
-ReactDOM.render(<Index />, document.getElementById("tweets"));
+ReactDOM.render(
+    <ApolloProvider client={client}>
+        <Index />
+    </ApolloProvider>,
+    document.getElementById("tweets")
+);
