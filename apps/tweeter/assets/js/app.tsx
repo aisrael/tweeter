@@ -22,7 +22,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-import TweetCard from './tweet_card.tsx';
+import TweetCard, { Tweet } from './tweet_card';
 
 const client = new ApolloClient();
 
@@ -49,7 +49,7 @@ const Index = () => {
                             return (
                                 <div>
                                     {
-                                        data.tweets.map(function (tweet, index) {
+                                        data.tweets.map((tweet: Tweet, index: number) => {
                                             return (<TweetCard key={tweet.id} tweet={tweet} />)
                                         })
                                     }

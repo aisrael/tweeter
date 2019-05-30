@@ -1,7 +1,7 @@
 import React from "react";
 import { format } from "date-fns";
 
-interface Tweet {
+export interface Tweet {
     id: number,
     timestamp: number,
     handle: string,
