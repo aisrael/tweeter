@@ -9,16 +9,3 @@
   </div>
 </section>
 <div id="tweets"></div>
-<section>
-  <div class="col">
-  <%= for tweet <- @tweets do %>
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title"><%= tweet.handle %></h5>
-        <h6 class="card-subtitle"><%= TweeterWeb.PageController.format_timestamp(tweet) %></h6>
-        <p class="card-text"><%= tweet.content %></p>
-      </div>
-    </div>
-  <% end %>
-  </div>
-</section>
