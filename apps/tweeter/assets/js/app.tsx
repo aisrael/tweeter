@@ -18,38 +18,13 @@ import "phoenix_html"
 
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import React, { useState, useReducer } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-import { format } from "date-fns";
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
+import TweetCard from './tweet_card.tsx';
 
 const client = new ApolloClient();
-
-interface Tweet {
-    id: number,
-    timestamp: number,
-    handle: string,
-    content: string
-}
-
-const TweetCard: React.FC<{
-    tweet: Tweet
-}> = ({
-    tweet
-}): JSX.Element => {
-        let date = new Date();
-        let formatted_timestamp = format(date, 'MM/DD/YYYY hh:mma');
-        return (
-            <div key={tweet.id} className="card" style={{ width: "18rem" }}>
-                <div className="card-body">
-                    <h5 className="card-title">{tweet.handle}</h5>
-                    <h6 className="card-subtitle">{formatted_timestamp}</h6>
-                    <p className="card-text">{tweet.content}</p>
-                </div>
-            </div>
-        )
-    }
 
 const LIST_TWEETS = gql`
 {
@@ -64,22 +39,26 @@ const LIST_TWEETS = gql`
 const Index = () => {
     return (
         <section>
-            <Query query={LIST_TWEETS}>
-                {({ loading, error, data }) => {
-                    if (loading) return 'Loading...';
-                    if (error) return `Error! ${error.message}`;
+            <div className="col">
+                <div className="row">
+                    <Query query={LIST_TWEETS}>
+                        {({ loading, error, data }) => {
+                            if (loading) return 'Loading...';
+                            if (error) return `Error! ${error.message}`;
 
-                    return (
-                        <div>
-                            {
-                                data.tweets.map(function (tweet, index) {
-                                    return (<TweetCard key={tweet.id} tweet={tweet} />)
-                                })
-                            }
-                        </div>
-                    );
-                }}
-            </Query>
+                            return (
+                                <div>
+                                    {
+                                        data.tweets.map(function (tweet, index) {
+                                            return (<TweetCard key={tweet.id} tweet={tweet} />)
+                                        })
+                                    }
+                                </div>
+                            );
+                        }}
+                    </Query>
+                </div>
+            </div>
         </section >
     )
 }

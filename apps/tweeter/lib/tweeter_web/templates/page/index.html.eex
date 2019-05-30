@@ -1,11 +1,15 @@
 <section>
   <div class="col">
-    <h2>Tweets</h2>
+    <div class="row">
+      <h2>Tweets</h2>
+    </div>
   </div>
 </section>
 <section>
   <div class="col-4">
-    <%= render "form.html", Map.put(assigns, :action, Routes.page_path(@conn, :create)) %>
+    <div class="row">
+      <%= render "form.html", Map.put(assigns, :action, Routes.page_path(@conn, :create)) %>
+    </div>
   </div>
 </section>
 <div id="tweets"></div>
