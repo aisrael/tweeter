@@ -5,11 +5,4 @@
     </div>
   </div>
 </section>
-<section>
-  <div class="col-4">
-    <div class="row">
-      <%= render "form.html", Map.put(assigns, :action, Routes.page_path(@conn, :create)) %>
-    </div>
-  </div>
-</section>
 <div id="tweets"></div>

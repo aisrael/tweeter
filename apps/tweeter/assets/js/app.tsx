@@ -23,6 +23,7 @@ import ReactDOM from "react-dom";
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import TweetCard, { Tweet } from './tweet_card';
+import TweetForm from './tweet_form';
 
 const client = new ApolloClient();
 
@@ -36,7 +37,7 @@ const LIST_TWEETS = gql`
 }
 `
 
-const Index = () => {
+const Tweets = () => {
     return (
         <section>
             <div className="col">
@@ -65,7 +66,8 @@ const Index = () => {
 
 ReactDOM.render(
     <ApolloProvider client={client}>
-        <Index />
+        <TweetForm />
+        <Tweets />
     </ApolloProvider>,
     document.getElementById("tweets")
 );
