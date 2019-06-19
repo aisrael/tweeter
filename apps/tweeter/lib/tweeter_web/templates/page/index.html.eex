@@ -1,22 +1,8 @@
 <section>
   <div class="col">
-    <h2>Tweets</h2>
-  </div>
-</section>
-<section>
-  <div class="col-4">
-    <%= render "form.html", Map.put(assigns, :action, Routes.page_path(@conn, :create)) %>
-
-  </div>
-</section>
-<section>
-  <%= for tweet <- @tweets do %>
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title"><%= tweet.handle %></h5>
-        <h6 class="card-subtitle"><%= TweeterWeb.PageController.format_timestamp(tweet) %></h6>
-        <p class="card-text"><%= tweet.content %></p>
-      </div>
+    <div class="row">
+      <h2>Tweets</h2>
     </div>
-  <% end %>
+  </div>
 </section>
+<div id="tweets"></div>
