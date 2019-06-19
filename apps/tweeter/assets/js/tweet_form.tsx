@@ -1,16 +1,8 @@
 import React from "react";
 import gql from 'graphql-tag';
 import { Mutation } from "react-apollo";
+import * as TweetsQL from './tweetsql';
 
-const CREATE_TWEET = gql`
-    mutation CreateTweet($handle: String!, $content: String!) {
-        createTweet(handle: $handle, content: $content) {
-            id
-            handle
-            content
-        }
-    }
-`
 
 export const TweetForm: React.FC<{}> = ({ }): JSX.Element => {
     let content: HTMLInputElement
@@ -20,7 +12,15 @@ export const TweetForm: React.FC<{}> = ({ }): JSX.Element => {
         <section>
             <div className="col-4">
                 <div className="row">
-                    <Mutation mutation={CREATE_TWEET}>
+                    <Mutation mutation={TweetsQL.CREATE_TWEET}
+                        update={(cache, { data: { createTweet } }) => {
+                            const { tweets } = cache.readQuery({ query: TweetsQL.LIST_TWEETS });
+                            cache.writeQuery({
+                                query: TweetsQL.LIST_TWEETS,
+                                data: { tweets: tweets.concat([createTweet]) },
+                            });
+                        }}
+                    >
                         {(createTweet, { _data }) => (
                             <form acceptCharset="UTF-8" onSubmit={e => {
                                 e.preventDefault();

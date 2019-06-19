@@ -20,30 +20,20 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import React from "react";
 import ReactDOM from "react-dom";
-import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
+import * as TweetsQL from './tweetsql';
 import TweetCard, { Tweet } from './tweet_card';
 import TweetForm from './tweet_form';
 
 const client = new ApolloClient();
-
-const LIST_TWEETS = gql`
-{
-    tweets {
-        id
-        handle
-        content
-    }
-}
-`
 
 const Tweets = () => {
     return (
         <section>
             <div className="col">
                 <div className="row">
-                    <Query query={LIST_TWEETS}>
-                        {({ loading, error, data }) => {
+                    <Query query={TweetsQL.LIST_TWEETS}>
+                        {({ loading, error, data }: { loading: any, error: any, data: any }) => {
                             if (loading) return 'Loading...';
                             if (error) return `Error! ${error.message}`;
 
