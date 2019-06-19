@@ -13,7 +13,7 @@ module.exports = (env, options) => ({
     ]
   },
   entry: {
-    './js/app.js': ['./js/app.js'].concat(glob.sync('./vendor/**/*.js'))
+    'js/app.js': ['./js/app.tsx'].concat(glob.sync('./vendor/**/*.js'))
   },
   output: {
     filename: 'app.js',
@@ -22,18 +22,14 @@ module.exports = (env, options) => ({
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(jsx?|tsx?)$/i,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
         }
       },
       {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
-      },
-      {
-        test: /\.scss$/,
+        test: /\.s?css$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       }
     ]
@@ -41,5 +37,8 @@ module.exports = (env, options) => ({
   plugins: [
     new MiniCssExtractPlugin({ filename: '../css/app.css' }),
     new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
-  ]
+  ],
+  resolve: {
+    extensions: ["*", ".js", ".jsx", ".json", ".ts", ".tsx", ".mjs"],
+  },
 });
