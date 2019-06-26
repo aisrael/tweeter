@@ -6,6 +6,7 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
+    "@types/react": "^16.8.22",
     "apollo-boost": "^0.4.3",
     "date-fns": "^1.30.1",
     "graphql": "^14.3.1",
