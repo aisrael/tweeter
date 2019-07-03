@@ -13,11 +13,14 @@ export const TweetForm: React.FC<{}> = ({ }): JSX.Element => {
             <div className="col-4">
                 <div className="row">
                     <Mutation mutation={TweetsQL.CREATE_TWEET}
-                        update={(cache, { data: { createTweet } }) => {
+                        update={(cache, { data: { idOnly } }) => {
+                            console.log("idOnly => ", idOnly);
                             const { tweets } = cache.readQuery({ query: TweetsQL.LIST_TWEETS });
                             cache.writeQuery({
                                 query: TweetsQL.LIST_TWEETS,
-                                data: { tweets: tweets.concat([createTweet]) },
+                                data: { tweets: tweets }
+                                // TODO: Figure out how to fetch the created tweet
+                                // data: { tweets: tweets.concat([tweet]) },
                             });
                         }}
                     >
