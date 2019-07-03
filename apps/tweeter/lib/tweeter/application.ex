@@ -30,8 +30,8 @@ defmodule Tweeter.Application do
       TweeterWeb.Endpoint,
       # Starts a worker by calling: Tweeter.Worker.start_link(arg)
       # {Tweeter.Worker, arg},
-      {Tweeter.TweetsEventHandler, []},
-      worker(Extreme, [event_store_settings, [name: @event_store]])
+      worker(Extreme, [event_store_settings, [name: @event_store]]),
+      {Tweeter.TweetsEventHandler, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
