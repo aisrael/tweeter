@@ -5,12 +5,23 @@ defmodule Tweeter.Application do
 
   use Application
 
+  import Supervisor.Spec
+
   @type start_type() :: :normal | {:takeover, node()} | {:failover, node()}
   @type state() :: term()
+
+  # From now on, we will be able to send events to the event store using
+  # ```
+  #   {:ok, response} = Extreme.execute Tweeter.EventStore, ...
+  # ```
+  @event_store Tweeter.EventStore
 
   @spec start(start_type(), start_args :: term()) ::
           {:ok, pid()} | {:ok, pid(), state()} | {:error, reason :: term()}
   def start(_type, _args) do
+    # See https://github.com/exponentially/extreme
+    event_store_settings = Application.get_env(:extreme, :event_store)
+
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository
@@ -19,7 +30,8 @@ defmodule Tweeter.Application do
       TweeterWeb.Endpoint,
       # Starts a worker by calling: Tweeter.Worker.start_link(arg)
       # {Tweeter.Worker, arg},
-      {Tweeter.TweetsEventHandler, []}
+      {Tweeter.TweetsEventHandler, []},
+      worker(Extreme, [event_store_settings, [name: @event_store]])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
