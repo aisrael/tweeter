@@ -24,10 +24,11 @@ defmodule Tweeter.Tweet do
 
   @doc false
   @spec insert(%Tweet{}, map) :: %Ecto.Changeset{}
-  def insert(tweet \\ %Tweet{}, attrs = %{id: id}) do
+  def insert(tweet \\ %Tweet{}, attrs = %{id: id, created_at: created_at}) do
     tweet
     |> cast(attrs, [:handle, :content])
     |> validate_required([:handle, :content])
     |> put_change(:id, id)
+    |> put_change(:created_at, created_at)
   end
 end
