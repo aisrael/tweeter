@@ -1,5 +1,9 @@
 # A TweetCreated event/Struct
 defmodule Tweeter.Events.TweetCreated do
+  @moduledoc """
+  A TweetCreated Event. 
+  """
+
   alias __MODULE__
   defstruct [:id, :handle, :content, :timestamp]
 

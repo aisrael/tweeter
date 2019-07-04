@@ -1,10 +1,14 @@
 defmodule Tweeter.Commands.CreateTweet do
+  @moduledoc """
+  A CreateTweet command
+  """
+
   defstruct [:uuid, data: %{}]
 
   alias __MODULE__
+  alias Tweeter.Events.TweetCreated
   alias Tweeter.Repo
   alias Tweeter.Tweet
-  alias Tweeter.Events.TweetCreated
 
   # Returns a new CreateTweet command
   @spec new(map) :: {:ok, %CreateTweet{}} | {:error, list}
@@ -37,12 +41,12 @@ defmodule Tweeter.Commands.CreateTweet do
   """
   @spec apply(%CreateTweet{}) :: %TweetCreated{}
   def apply(%CreateTweet{} = self) do
-    self.data |> Tweeter.Events.TweetCreated.new()
+    TweetCreated.new(self.data)
   end
 
   # Returns the current time as milliseconds from epoch
-  @spec utc_now_millis() :: integer
-  defp utc_now_millis() do
+  @spec utc_now_millis :: integer
+  defp utc_now_millis do
     DateTime.utc_now() |> DateTime.to_unix(:millisecond)
   end
 end

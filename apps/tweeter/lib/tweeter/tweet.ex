@@ -24,7 +24,7 @@ defmodule Tweeter.Tweet do
 
   @doc false
   @spec insert(%Tweet{}, map) :: %Ecto.Changeset{}
-  def insert(tweet \\ %Tweet{}, attrs = %{id: id, inserted_at: inserted_at}) do
+  def insert(tweet \\ %Tweet{}, %{id: id, inserted_at: inserted_at} = attrs) do
     tweet
     |> cast(attrs, [:handle, :content])
     |> validate_required([:handle, :content])

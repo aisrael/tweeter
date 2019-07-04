@@ -5,9 +5,9 @@ defmodule Tweeter.Tweets do
 
   import Ecto.Query, warn: false
 
+  alias Tweeter.Commands.CreateTweet
   alias Tweeter.Repo
   alias Tweeter.Tweet
-  alias Tweeter.Commands.CreateTweet
 
   require Logger
 
