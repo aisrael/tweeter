@@ -1,19 +1,17 @@
-# A TweetCreated event
-defmodule Tweeter.TweetCreated do
+# A TweetCreated event/Struct
+defmodule Tweeter.Events.TweetCreated do
+  alias __MODULE__
   defstruct [:id, :handle, :content, :timestamp]
 
-  @spec new(map) :: %Tweeter.TweetCreated{}
-  def new(%{id: id, handle: handle, content: content})
-      when is_integer(id) and is_binary(handle) and is_binary(content) do
-    %Tweeter.TweetCreated{
+  # Returns a new TweetCreated event
+  @spec new(map) :: %TweetCreated{}
+  def new(%{id: id, handle: handle, content: content, timestamp: timestamp})
+      when is_integer(id) and is_binary(handle) and is_binary(content) and is_integer(timestamp) do
+    %TweetCreated{
       id: id,
       handle: handle,
       content: content,
-      timestamp: utc_now_millis()
+      timestamp: timestamp
     }
-  end
-
-  defp utc_now_millis() do
-    DateTime.utc_now() |> DateTime.to_unix(:millisecond)
   end
 end

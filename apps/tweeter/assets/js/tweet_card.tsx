@@ -13,7 +13,7 @@ export const TweetCard: React.FC<{
 }> = ({
     tweet
 }): JSX.Element => {
-        let date = new Date();
+        let date = new Date(tweet.timestamp);
         let formatted_timestamp = format(date, 'MM/DD/YYYY hh:mma');
         return (
             <div key={tweet.id} className="card" style={{ width: "18rem" }}>

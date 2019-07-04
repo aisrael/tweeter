@@ -6,6 +6,7 @@ export const LIST_TWEETS = gql`
         id
         handle
         content
+        timestamp
     }
 }
 `
@@ -13,7 +14,7 @@ export const LIST_TWEETS = gql`
 export const CREATE_TWEET = gql`
     mutation CreateTweet($handle: String!, $content: String!) {
         createTweet(handle: $handle, content: $content) {
-            id
+            uuid
         }
     }
 `

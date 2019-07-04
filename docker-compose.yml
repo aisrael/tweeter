@@ -8,6 +8,16 @@ services:
       - POSTGRES_DB=tweeter
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+  rabbitmq:
+    image: rabbitmq:3.7.15-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    container_name: rabbitmq
+    hostname: rabbitmq
   eventstore:
     image: eventstore/eventstore:release-4.1.2
     ports:

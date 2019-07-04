@@ -27,19 +27,19 @@ export const TweetForm: React.FC<{}> = ({ }): JSX.Element => {
                                 createTweet({ variables: { content: content.value, handle: handle.value } });
                             }}>
                                 <div className="form-group">
-                                    <label htmlFor="tweet_content">Content</label>
-                                    <input className="form-control" id="tweet_content" type="text" ref={node => {
+                                    <label htmlFor="tweet_handle">Handle</label>
+                                    <input className="form-control" id="tweet_handle" type="text" ref={node => {
                                         if (node) {
-                                            content = node;
+                                            handle = node;
                                         }
                                     }} />
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="tweet_handle">Handle</label>
-                                    <input className="form-control" id="tweet_handle" type="text" ref={node => {
+                                    <label htmlFor="tweet_content">Content</label>
+                                    <input className="form-control" id="tweet_content" type="text" ref={node => {
                                         if (node) {
-                                            handle = node;
+                                            content = node;
                                         }
                                     }} />
                                 </div>

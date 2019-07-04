@@ -44,6 +44,8 @@ defmodule Tweeter.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:uuid, "~> 1.1"},
+      {:amqp, "~> 1.2"},
       {:extreme, "~> 0.13.3"},
       {:timex, "~> 3.1"},
       {:phoenix, "~> 1.4.0"},

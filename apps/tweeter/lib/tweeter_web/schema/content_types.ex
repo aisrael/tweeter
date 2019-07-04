@@ -12,6 +12,7 @@ defmodule TweeterWeb.Schema.ContentTypes do
     field :id, :id
     field :handle, :string
     field :content, :string
+    field :timestamp, :integer
   end
 
   object :tweet_queries do
@@ -27,13 +28,13 @@ defmodule TweeterWeb.Schema.ContentTypes do
     end
   end
 
-  object :id_only do
-    field :id, :id
+  object :uuid_only do
+    field :uuid, :string
   end
 
   object :tweet_commands do
     @desc "Creates a tweet (asynchronously), returning only the id"
-    field :create_tweet, type: :id_only do
+    field :create_tweet, type: :uuid_only do
       arg(:handle, non_null(:string))
       arg(:content, non_null(:string))
 

@@ -43,10 +43,17 @@ defmodule Tweeter.TweetsEventHandler do
        ) do
     Logger.debug(fn -> "process_event(#{inspect(data)})" end)
 
-    {:ok, created_at} = DateTime.from_unix(timestamp, :millisecond)
+    # TODO: Move all this logic inside `TweetCreated`
+    {:ok, inserted_at} = DateTime.from_unix(timestamp, :millisecond)
 
-    Logger.debug(fn -> "created_at => #{inspect(created_at)}" end)
-    attrs = %{id: id, handle: handle, content: content, created_at: created_at}
+    Logger.debug(fn -> "inserted_at => #{inspect(inserted_at)}" end)
+
+    attrs = %{
+      id: id,
+      handle: handle,
+      content: content,
+      inserted_at: inserted_at |> DateTime.truncate(:second)
+    }
 
     %Tweet{}
     |> Tweet.insert(attrs)
