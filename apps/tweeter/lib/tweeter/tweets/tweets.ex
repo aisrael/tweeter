@@ -4,9 +4,12 @@ defmodule Tweeter.Tweets do
   """
 
   import Ecto.Query, warn: false
-  alias Tweeter.Repo
 
+  alias Extreme.Msg, as: ExMsg
+  alias Tweeter.Repo
   alias Tweeter.Tweet
+
+  require Logger
 
   @doc """
   Returns the list of tweets.
@@ -57,11 +60,47 @@ defmodule Tweeter.Tweets do
 
     if changeset.valid? do
       tweet_id = Repo.nextval!("tweets_id_seq")
-      Tweeter.TweetsEventHandler.tweet_created(Map.put(attrs, :id, tweet_id))
+      tweet_created(tweet_id, attrs)
       {:ok, tweet_id}
     else
       {:error, changeset}
     end
+  end
+
+  @spec tweet_created(integer, map) :: {:ok, integer}
+  def tweet_created(tweet_id, attrs) do
+    attrs
+    |> Map.put(:id, tweet_id)
+    |> Tweeter.TweetCreated.new()
+    |> emit_event
+  end
+
+  defp emit_event(%Tweeter.TweetCreated{} = event) do
+    Logger.debug(fn -> "emit_event(#{inspect(event)}" end)
+
+    event_type = event.__struct__ |> Module.split() |> Enum.join(".")
+
+    proto_events = [
+      ExMsg.NewEvent.new(
+        # Ecto.UUID.generate()?
+        event_id: Extreme.Tools.gen_uuid(),
+        event_type: event_type,
+        data_content_type: 0,
+        metadata_content_type: 0,
+        data: :erlang.term_to_binary(Map.from_struct(event)),
+        metadata: ""
+      )
+    ]
+
+    write_events =
+      ExMsg.WriteEvents.new(
+        event_stream_id: "tweeter",
+        expected_version: -2,
+        events: proto_events,
+        require_master: false
+      )
+
+    Extreme.execute(Tweeter.EventStore, write_events)
   end
 
   @doc """

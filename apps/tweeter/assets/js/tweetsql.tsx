@@ -14,8 +14,6 @@ export const CREATE_TWEET = gql`
     mutation CreateTweet($handle: String!, $content: String!) {
         createTweet(handle: $handle, content: $content) {
             id
-            handle
-            content
         }
     }
 `
