@@ -13,18 +13,12 @@ export const TweetForm: React.FC<{}> = ({ }): JSX.Element => {
             <div className="col-4">
                 <div className="row">
                     <Mutation mutation={TweetsQL.CREATE_TWEET}
-                        update={(cache, { data: { idOnly } }) => {
-                            console.log("idOnly => ", idOnly);
-                            const { tweets } = cache.readQuery({ query: TweetsQL.LIST_TWEETS });
-                            cache.writeQuery({
-                                query: TweetsQL.LIST_TWEETS,
-                                data: { tweets: tweets }
-                                // TODO: Figure out how to fetch the created tweet
-                                // data: { tweets: tweets.concat([tweet]) },
-                            });
+                        refetchQueries={(data) => {
+                            console.log("data => ", data);
+                            return [{ query: TweetsQL.LIST_TWEETS, variables: {} }];
                         }}
                     >
-                        {(createTweet, { _data }) => (
+                        {(createTweet, { data }) => (
                             <form acceptCharset="UTF-8" onSubmit={e => {
                                 e.preventDefault();
                                 console.log("createTweet()")
