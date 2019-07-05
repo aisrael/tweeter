@@ -12,6 +12,8 @@ use Mix.Config
 # apps, should be configured in the umbrella to avoid confusion.
 import_config "../apps/*/config/config.exs"
 
+config :tweeter, :event_store, stream: "tweeter"
+
 # Configures Elixir's Logger
 elixir_logger_level = System.get_env("ELIXIR_LOGGER_LEVEL") || "info"
 

@@ -31,7 +31,7 @@ defmodule Tweeter.Application do
       # Starts a worker by calling: Tweeter.Worker.start_link(arg)
       # {Tweeter.Worker, arg},
       worker(Extreme, [event_store_settings, [name: @event_store]]),
-      {Tweeter.TweetsEventHandler, []},
+      {Tweeter.TweetsEventHandler, Application.get_env(:tweeter, :event_store)},
       Tweeter.Commander
     ]
 

@@ -18,5 +18,5 @@ config :extreme, :event_store,
   username: "admin",
   password: "changeit",
   reconnect_delay: 2_000,
-  connection_name: :my_app,
+  connection_name: :tweeter,
   max_attempts: :infinity

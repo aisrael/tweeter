@@ -34,6 +34,14 @@ defmodule Tweeter.DataCase do
       Sandbox.mode(Tweeter.Repo, {:shared, self()})
     end
 
+    # Need to restart the Tweeter.TweetsEventHandler GenServer
+    # see https://elixirforum.com/t/phoenix-testing-with-ecto-2-sandbox-access-from-processes/9174/11
+    :ok = Supervisor.terminate_child(Tweeter.Supervisor, Tweeter.TweetsEventHandler)
+
+    {:ok, _} = Supervisor.restart_child(Tweeter.Supervisor, Tweeter.TweetsEventHandler)
+
+    :ok
+
     :ok
   end
 

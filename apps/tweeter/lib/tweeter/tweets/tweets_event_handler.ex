@@ -9,18 +9,16 @@ defmodule Tweeter.TweetsEventHandler do
   alias Tweeter.Repo
   alias Tweeter.Tweet
 
-  @stream "tweeter"
-
   @spec start_link(term()) :: GenServer.on_start()
-  def start_link(args \\ :none) do
-    Logger.debug("start_link(#{inspect(args)})")
-    GenServer.start_link(__MODULE__, :ok, name: __MODULE__)
+  def start_link(stream: stream) do
+    Logger.debug("start_link(stream: #{stream})")
+    GenServer.start_link(__MODULE__, [stream: stream], name: __MODULE__)
   end
 
   @impl true
-  def init(:ok) do
+  def init(stream: stream) do
     Logger.debug(fn -> "init(:ok)" end)
-    res = Extreme.subscribe_to(Tweeter.EventStore, self(), @stream)
+    res = Extreme.subscribe_to(Tweeter.EventStore, self(), stream)
     Logger.debug(fn -> "res => #{inspect(res)}" end)
     {:ok, :ok}
   end
@@ -28,7 +26,7 @@ defmodule Tweeter.TweetsEventHandler do
   # Handle events from EventStore
   @impl true
   def handle_info({:on_event, push}, state) do
-    Logger.debug(fn -> "New event on stream '#{@stream}': #{inspect(push)}" end)
+    Logger.debug(fn -> "New event: #{inspect(push)}" end)
 
     push.event.data
     |> :erlang.binary_to_term()

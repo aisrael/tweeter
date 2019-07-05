@@ -59,8 +59,8 @@ defmodule Tweeter.Tweets do
     case CreateTweet.new(attrs) do
       {:ok, command} ->
         Tweeter.Commander.publish(command)
-        # Also a hack. Not sure what to return now that everything is async
-        {:ok, command.uuid}
+        # Return the id of the (about to be created) Tweet
+        {:ok, command.data.id}
 
       {:error, errors} ->
         {:error, errors}
