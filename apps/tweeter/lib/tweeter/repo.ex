@@ -7,7 +7,7 @@ defmodule Tweeter.Repo do
 
   @spec init(:supervisor | :runtime, config :: Keyword.t()) :: {:ok, Keyword.t()} | :ignore
   def init(_type, config) do
-    if database_url = System.get_env("DATABASE_URL") do
+    if database_url = System.get_env("TWEETER_DATABASE_URL") do
       {:ok, Keyword.put(config, :url, database_url)}
     else
       repo_hostname =
