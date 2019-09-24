@@ -19,6 +19,7 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
     container_name: rabbitmq
     hostname: rabbitmq
+
   eventstore:
     image: eventstore/eventstore:release-4.1.2
     ports:

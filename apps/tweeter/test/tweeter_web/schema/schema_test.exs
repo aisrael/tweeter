@@ -44,7 +44,7 @@ defmodule TweeterWeb.SchemaTest do
       }
       """
 
-      count_before = Tweeter.Tweets.list_tweets() |> Enum.count()
+      # count_before = Tweeter.Tweets.list_tweets() |> Enum.count()
 
       response =
         conn

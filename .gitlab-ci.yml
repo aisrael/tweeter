@@ -1,9 +1,42 @@
 stages:
   - test
 
-mix_test:
+
+# Cache deps in between jobs
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - _build/test
+
+# Base elixir job:
+#
+# * elixir-1.9.0-alpine
+# * only run on certain changes
+.elixir: &elixir
   stage: test
-  image: elixir:1.8.1-alpine
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - mix.exs
+      - mix.lock
+      - apps/*/mix.exs
+      - apps/*/mix.lock
+      - apps/*/lib/**/*.{ex,exs}
+      - apps/*/priv/**/*.{ex,exs}
+      - apps/*/test/**/*.{ex,exs}
+  image: ibakami/elixir-node:1.9.1-alpine
+  variables:
+    MIX_ENV: test
+  before_script:
+    - mix deps.get
+
+credo:
+  <<: *elixir
+  script:
+    - mix credo --strict
+
+mix_test:
+  <<: *elixir
   variables:
     MIX_ENV: test
     TWEETER_DATABASE_URL: ecto://postgres:postgres@postgres/tweeter_test

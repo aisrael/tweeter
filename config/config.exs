@@ -41,10 +41,13 @@ config :phoenix, :json_library, Jason
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
 
+# See https://github.com/exponentially/extreme#eventstore-v4-and-later-note
+config :extreme, :protocol_version, 4
+
 # See https://github.com/exponentially/extreme
 config :extreme, :event_store,
   db_type: :node,
-  host: "localhost",
+  host: System.get_env("TWEETER_EVENTSTORE", "eventstore-eventstore"),
   port: 1113,
   username: "admin",
   password: "changeit",
