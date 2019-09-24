@@ -28,7 +28,9 @@ cache:
   variables:
     MIX_ENV: test
   before_script:
-    - mix deps.get
+    - mix local.rebar --force
+    - mix local.hex --force
+    - mix deps.get && mix deps.compile
 
 credo:
   <<: *elixir
@@ -44,13 +46,10 @@ mix_test:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: postgres
     ELIXIR_LOGGER_LEVEL: trace
-    TWEETER_EVENTSTORE: eventstore-eventstore
+    TWEETER_EVENTSTORE: eventstore__eventstore
   services:
     - postgres:10.5-alpine
     - rabbitmq:3.7.15-alpine
     - eventstore/eventstore:release-4.1.2
   script:
-    - mix local.rebar --force
-    - mix local.hex --force
-    - mix deps.get && mix deps.compile
     - mix test

@@ -59,6 +59,8 @@ defmodule TweeterWeb.SchemaTest do
                }
              } = response
 
+      :sys.get_state(Tweeter.TweetsEventHandler)
+
       # TODO End to end testing somehow (need to start _all_ services)
 
       # assert Tweeter.Tweets.list_tweets() |> Enum.count() == count_before + 1

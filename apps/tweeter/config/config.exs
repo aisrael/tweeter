@@ -28,6 +28,8 @@ config :phoenix, :json_library, Jason
 # See https://github.com/exponentially/extreme#eventstore-v4-and-later-note
 config :extreme, :protocol_version, 4
 
+IO.puts(:stderr, "TWEETER_EVENTSTORE => #{System.get_env("TWEETER_EVENTSTORE")}")
+
 # See https://github.com/exponentially/extreme
 config :extreme, :event_store,
   db_type: :node,
