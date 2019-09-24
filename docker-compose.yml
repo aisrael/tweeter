@@ -8,6 +8,7 @@ services:
       - POSTGRES_DB=tweeter
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+
   rabbitmq:
     image: rabbitmq:3.7.15-management-alpine
     ports:
