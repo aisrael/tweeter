@@ -25,6 +25,20 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# See https://github.com/exponentially/extreme#eventstore-v4-and-later-note
+config :extreme, :protocol_version, 4
+
+# See https://github.com/exponentially/extreme
+config :extreme, :event_store,
+  db_type: :node,
+  host: System.get_env("TWEETER_EVENTSTORE", "localhost"),
+  port: 1113,
+  username: "admin",
+  password: "changeit",
+  reconnect_delay: 2_000,
+  connection_name: :tweeter,
+  max_attempts: :infinity
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
