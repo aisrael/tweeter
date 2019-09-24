@@ -41,8 +41,6 @@ defmodule Tweeter.DataCase do
     {:ok, _} = Supervisor.restart_child(Tweeter.Supervisor, Tweeter.TweetsEventHandler)
 
     :ok
-
-    :ok
   end
 
   @doc """
