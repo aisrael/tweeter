@@ -44,7 +44,7 @@ defmodule TweeterWeb.SchemaTest do
       }
       """
 
-      count_before = Tweeter.Tweets.list_tweets() |> Enum.count()
+      # count_before = Tweeter.Tweets.list_tweets() |> Enum.count()
 
       response =
         conn
@@ -58,6 +58,8 @@ defmodule TweeterWeb.SchemaTest do
                  }
                }
              } = response
+
+      :sys.get_state(Tweeter.TweetsEventHandler)
 
       # TODO End to end testing somehow (need to start _all_ services)
 

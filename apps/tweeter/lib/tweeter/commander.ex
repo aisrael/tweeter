@@ -16,13 +16,19 @@ defmodule Tweeter.Commander do
   """
   @spec start_link(term()) :: GenServer.on_start()
   def start_link(_) do
-    GenServer.start_link(__MODULE__, :nothing, name: __MODULE__)
+    host = System.get_env("TWEETER_RABBITMQ_HOST", "localhost")
+    port = "TWEETER_RABBITMQ_PORT" |> System.get_env("5672") |> String.to_integer()
+    IO.puts(:stderr, "host => #{host}")
+    IO.puts(:stderr, "port => #{port}")
+    GenServer.start_link(__MODULE__, [host: host, port: port], name: __MODULE__)
   end
 
   @impl true
-  @spec init(Connection.t()) :: {:ok, Channel.t()}
-  def init(:nothing) do
-    with {:ok, connection} <- Connection.open(),
+  @spec init(connection_params :: [hostname: String.t(), port: integer]) :: {:ok, Channel.t()}
+  def init(connection_params \\ []) do
+    IO.puts(:stderr, "connection_params => #{inspect(connection_params)}")
+
+    with {:ok, connection} <- AMQP.Connection.open(connection_params),
          {:ok, channel} <- Channel.open(connection),
          :ok <- Exchange.declare(channel, @exchange_name, :fanout),
          {:ok, %{queue: queue_name}} <- Queue.declare(channel, "", exclusive: true),
@@ -34,7 +40,7 @@ defmodule Tweeter.Commander do
   end
 
   @doc """
-  Publishe the given command to RabbitMQ (handled asynchronously by `handle_cast/2` below)
+  Publish the given command to RabbitMQ (handled asynchronously by `handle_cast/2` below)
   """
   @spec publish(any()) :: :ok
   def publish(command) do

@@ -8,7 +8,7 @@ config :logger, level: :warn
 # See https://github.com/exponentially/extreme
 config :extreme, :event_store,
   db_type: :node,
-  host: "localhost",
+  host: System.get_env("TWEETER_EVENTSTORE", "eventstore-eventstore"),
   port: 1113,
   username: "admin",
   password: "changeit",

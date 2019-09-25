@@ -34,9 +34,15 @@ defmodule TweeterWeb.ConnCase do
     # Ecto.Adapters.SQL.Sandbox.allow(Tweeter.Repo, self(), Tweeter.TweetsEventHandler)
 
     # So we need to ignore the :async tag
-    # unless tags[:async] do
-    Sandbox.mode(Tweeter.Repo, {:shared, self()})
-    # end
+    unless tags[:async] do
+      Sandbox.mode(Tweeter.Repo, {:shared, self()})
+    end
+
+    # Need to restart the Tweeter.TweetsEventHandler GenServer
+    # see https://elixirforum.com/t/phoenix-testing-with-ecto-2-sandbox-access-from-processes/9174/11
+    :ok = Supervisor.terminate_child(Tweeter.Supervisor, Tweeter.TweetsEventHandler)
+
+    {:ok, _} = Supervisor.restart_child(Tweeter.Supervisor, Tweeter.TweetsEventHandler)
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
