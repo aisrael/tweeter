@@ -18,12 +18,16 @@ defmodule Tweeter.Commander do
   def start_link(_) do
     hostname = System.get_env("TWEETER_RABBITMQ_HOSTNAME", "localhost")
     port = "TWEETER_RABBITMQ_PORT" |> System.get_env("5672") |> String.to_integer()
+    IO.puts(:stderr, "hostname => #{hostname}")
+    IO.puts(:stderr, "port => #{port}")
     GenServer.start_link(__MODULE__, [hostname: hostname, port: port], name: __MODULE__)
   end
 
   @impl true
   @spec init(connection_params :: [hostname: String.t(), port: integer]) :: {:ok, Channel.t()}
   def init(connection_params \\ []) do
+    IO.puts(:stderr, "connection_params => #{inspect(connection_params)}")
+
     with {:ok, connection} <- AMQP.Connection.open(connection_params),
          {:ok, channel} <- Channel.open(connection),
          :ok <- Exchange.declare(channel, @exchange_name, :fanout),
