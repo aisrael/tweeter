@@ -16,11 +16,11 @@ defmodule Tweeter.Commander do
   """
   @spec start_link(term()) :: GenServer.on_start()
   def start_link(_) do
-    hostname = System.get_env("TWEETER_RABBITMQ_HOSTNAME", "localhost")
+    host = System.get_env("TWEETER_RABBITMQ_HOST", "localhost")
     port = "TWEETER_RABBITMQ_PORT" |> System.get_env("5672") |> String.to_integer()
-    IO.puts(:stderr, "hostname => #{hostname}")
+    IO.puts(:stderr, "host => #{host}")
     IO.puts(:stderr, "port => #{port}")
-    GenServer.start_link(__MODULE__, [hostname: hostname, port: port], name: __MODULE__)
+    GenServer.start_link(__MODULE__, [host: host, port: port], name: __MODULE__)
   end
 
   @impl true

@@ -46,11 +46,13 @@ mix_test:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: postgres
     ELIXIR_LOGGER_LEVEL: trace
-    TWEETER_EVENTSTORE: eventstore-eventstore
-    TWEETER_RABBITMQ_HOSTNAME: rabbitmq
+    TWEETER_EVENTSTORE: eventstore
+    TWEETER_RABBITMQ_HOST: rabbitmq
   services:
     - postgres:10.5-alpine
-    - rabbitmq:3.7.15-alpine
-    - eventstore/eventstore:release-4.1.2
+    - name: rabbitmq:3.7.15-alpine
+      alias: rabbitmq
+    - name: eventstore/eventstore:release-4.1.2
+      alias: eventstore
   script:
     - mix test
